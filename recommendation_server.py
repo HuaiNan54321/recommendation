@@ -1,18 +1,17 @@
 """Minimal recommendation service (stand-in for the OTel demo's Python service).
 
-s4 capstone — the "bad" (planted) revision. Two things matter here:
+Fixed revision: the recent-id cache is bounded again. Two things matter here:
 
 1. **It is a real, runnable service.** `python recommendation_server.py` starts an
    HTTP server on :8080 AND a background load thread that keeps calling
    `get_recommendations`. So when this image runs in a container, its working-set
-   memory climbs monotonically on its own — 故障诊断处置 Agent can OBSERVE a live leaking
-   process (`docker stats`, the /metrics endpoint), not merely infer it from text.
+   memory can be OBSERVED live (`docker stats`, the /metrics endpoint), not merely
+   inferred from text.
 
-2. **The leak lives in pure logic that pytest can pin down.** `get_recommendations`
-   appends every requested id into a module-level unbounded list that is never
-   trimmed, so the working set grows without limit -> OOM. The fix is to bound it
-   (collections.deque(maxlen=N)) or drop the cache. `test_memory_is_bounded` is the
-   build+test gate 代码修复 Agent must turn green before opening a PR.
+2. **The recent-id cache is bounded in pure logic that pytest can pin down.**
+   `get_recommendations` records requested ids into a module-level
+   `deque(maxlen=128)`, so the working set stays flat no matter how long the load
+   runs. `test_memory_is_bounded` guards this invariant.
 
 Kept dependency-light (stdlib only, no gRPC/framework) so 代码修复 Agent can build+test it
 with just the stdlib + pytest in the clone, and so the container image stays tiny.
@@ -23,12 +22,14 @@ import json
 import os
 import threading
 import time
+from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-# --- BAD (s4 planted leak): module-level unbounded accumulation ---
-# Every GetRecommendations call appends to this list and it is never bounded,
-# so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+# Bounded recent-id cache: only the most recent ids are kept, so the working set
+# stays flat under sustained load. Must NOT be replaced by an unbounded container
+# (see f18f452, which swapped this for a bare list and caused an OOMKill loop).
+_SEEN_IDS_MAXLEN = 128
+_seen_product_ids: deque[str] = deque(maxlen=_SEEN_IDS_MAXLEN)  # bounded: recent ids only
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
@@ -40,7 +41,7 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
     _request_count += 1
-    # leak: record every id we have ever seen, unbounded
+    # record recently seen ids; the deque maxlen evicts the oldest entries
     _seen_product_ids.extend(input_product_ids)
 
     candidates = [p for p in CATALOG if p not in set(input_product_ids)]
@@ -66,7 +67,7 @@ class _Handler(BaseHTTPRequestHandler):
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the two signals 故障诊断处置 Agent can scrape.
             body = (
-                "# HELP recommendation_seen_ids_total tracked product ids (unbounded leak)\n"
+                "# HELP recommendation_seen_ids_total tracked product ids (bounded cache)\n"
                 "# TYPE recommendation_seen_ids_total gauge\n"
                 f"recommendation_seen_ids_total {seen_count()}\n"
                 "# HELP recommendation_requests_total requests served\n"
@@ -117,7 +118,7 @@ def main() -> None:
         t.start()
         print(f"[recommendation] background load started ~{rps} rps", flush=True)
     srv = ThreadingHTTPServer(("0.0.0.0", port), _Handler)
-    print(f"[recommendation] serving on :{port} (leak revision)", flush=True)
+    print(f"[recommendation] serving on :{port} (bounded recent-id cache)", flush=True)
     srv.serve_forever()
 
 
