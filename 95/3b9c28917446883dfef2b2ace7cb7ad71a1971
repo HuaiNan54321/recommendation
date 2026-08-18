@@ -1,0 +1,19 @@
+dedupe.py
+  s_9abe0eaf963514::t_a87afc50962980 15-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "953b9c28917446883dfef2b2ace7cb7ad71a1971",
+  "prompts": {},
+  "sessions": {
+    "s_9abe0eaf963514": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "32bc695f-0a10-47ee-80e3-a262c5201bfe",
+        "model": "unknown"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
