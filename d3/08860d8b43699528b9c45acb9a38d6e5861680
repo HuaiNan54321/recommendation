@@ -1,0 +1,19 @@
+recommendation_server.py
+  s_df382e338218f3::t_cc2654b808da23 25,29-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "d308860d8b43699528b9c45acb9a38d6e5861680",
+  "prompts": {},
+  "sessions": {
+    "s_df382e338218f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "abc1d70f-46b2-4ddd-93fe-b9f6778db322",
+        "model": "unknown"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
