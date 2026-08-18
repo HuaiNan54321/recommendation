@@ -1,0 +1,19 @@
+ranking.py
+  s_402f39374fb5fb::t_a7e95fbee7ee05 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "d977c50a6e73e44638e6555db4b34dedf72473a3",
+  "prompts": {},
+  "sessions": {
+    "s_402f39374fb5fb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef0ac17b-822d-4120-afbb-8a288907bbb1",
+        "model": "unknown"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
