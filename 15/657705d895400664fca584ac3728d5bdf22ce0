@@ -1,0 +1,37 @@
+Dockerfile
+  s_ab95fd0207dd9f::t_3485479b398f72 8
+dedupe.py
+  s_ab95fd0207dd9f::t_00ec5d8f386293 1-23
+ranking.py
+  s_ab95fd0207dd9f::t_5a7ae425e2433f 1-14
+stats.py
+  s_ab95fd0207dd9f::t_6a0966ae7f092d 1-13,20-27
+  s_ab95fd0207dd9f::t_11fe798fc54913 14-19
+test_dedupe.py
+  s_ab95fd0207dd9f::t_7ae7891a2cef2a 1-10
+recommendation_server.py
+  s_ab95fd0207dd9f::t_e428ad1a6b767e 28-31,39-41,52,54-58
+test_stats.py
+  s_ab95fd0207dd9f::t_70f48104b3e4e2 1-7,9-14,19-31,33,35,37
+  s_ab95fd0207dd9f::t_f9642b4e004cb8 32
+  s_ab95fd0207dd9f::t_ddee4493536a21 8,15-18
+  s_ab95fd0207dd9f::t_ac133451b2b59f 34,36
+test_ranking.py
+  s_ab95fd0207dd9f::t_9ce8723c4d5979 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "15657705d895400664fca584ac3728d5bdf22ce0",
+  "prompts": {},
+  "sessions": {
+    "s_ab95fd0207dd9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc124c07-d0c8-421b-8bad-71b03dfbc693",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "huangzihao <huangzihao@xiaohongshu.com>"
+    }
+  }
+}
