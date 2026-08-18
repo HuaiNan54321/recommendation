@@ -1,0 +1,19 @@
+ranking.py
+  s_ab95fd0207dd9f::t_616d4716942e85 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "9c01e43ce093f60741ef1f032707ed3390da64ae",
+  "prompts": {},
+  "sessions": {
+    "s_ab95fd0207dd9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc124c07-d0c8-421b-8bad-71b03dfbc693",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
