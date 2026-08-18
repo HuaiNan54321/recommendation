@@ -1,0 +1,33 @@
+recommendation_server.py
+  s_ab95fd0207dd9f::t_bbcab34782aff6 3-13,27-30,35-37,47,49-53
+Dockerfile
+  s_ab95fd0207dd9f::t_7e77a98c9a22ba 8
+dedupe.py
+  s_ab95fd0207dd9f::t_b9be32fe8f1430 1-23
+ranking.py
+  s_ab95fd0207dd9f::t_55d80aeadea88d 1-14
+stats.py
+  s_ab95fd0207dd9f::t_debf365e36da6e 1-27
+test_dedupe.py
+  s_ab95fd0207dd9f::t_254f6452e74239 1-10
+test_ranking.py
+  s_ab95fd0207dd9f::t_3b0b9ef4ed81a7 1-13
+test_stats.py
+  s_ab95fd0207dd9f::t_a8263296af0968 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "6a10ee44e6e523f7a4da2d2794e07a2dbc1620c2",
+  "prompts": {},
+  "sessions": {
+    "s_ab95fd0207dd9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc124c07-d0c8-421b-8bad-71b03dfbc693",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "huangzihao <huangzihao@xiaohongshu.com>"
+    }
+  }
+}
