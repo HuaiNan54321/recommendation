@@ -1,0 +1,19 @@
+stats.py
+  s_5ca0ef9c6d469e::t_81a00093a4100e 9-10,12,17-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "baafc2a224fdd8d99b44894a077996f8d8dcde3c",
+  "prompts": {},
+  "sessions": {
+    "s_5ca0ef9c6d469e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ed3e1780-ec26-4cb1-af44-bbcee51a9a72",
+        "model": "unknown"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
