@@ -23,12 +23,15 @@ import json
 import os
 import threading
 import time
+from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-# --- BAD (s4 planted leak): module-level unbounded accumulation ---
-# Every GetRecommendations call appends to this list and it is never bounded,
-# so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+# --- FIXED: bounded recent-id tracker ---
+# Every GetRecommendations call records the ids it has seen, but the tracker is
+# capped at MAX_SEEN_IDS so the working set stays bounded under sustained load
+# instead of growing without limit -> OOM (s4 planted-leak root cause).
+MAX_SEEN_IDS = 500
+_seen_product_ids: deque[str] = deque(maxlen=MAX_SEEN_IDS)
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
@@ -40,7 +43,7 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
     _request_count += 1
-    # leak: record every id we have ever seen, unbounded
+    # record every id we have seen, bounded by the deque's maxlen
     _seen_product_ids.extend(input_product_ids)
 
     candidates = [p for p in CATALOG if p not in set(input_product_ids)]
@@ -66,7 +69,7 @@ class _Handler(BaseHTTPRequestHandler):
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the two signals 故障诊断处置 Agent can scrape.
             body = (
-                "# HELP recommendation_seen_ids_total tracked product ids (unbounded leak)\n"
+                "# HELP recommendation_seen_ids_total tracked product ids (bounded deque)\n"
                 "# TYPE recommendation_seen_ids_total gauge\n"
                 f"recommendation_seen_ids_total {seen_count()}\n"
                 "# HELP recommendation_requests_total requests served\n"
