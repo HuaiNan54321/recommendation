@@ -9,6 +9,5 @@ from __future__ import annotations
 
 def rank_by_score(scored_candidates: list[tuple[str, float]]) -> list[str]:
     """Return candidate product ids ordered by score, highest (most popular) first."""
-    # BUG: sorts ascending (least popular first) instead of descending.
-    ordered = sorted(scored_candidates, key=lambda pair: pair[1])
+    ordered = sorted(scored_candidates, key=lambda pair: pair[1], reverse=True)
     return [product_id for product_id, _score in ordered]
