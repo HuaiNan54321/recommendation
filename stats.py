@@ -6,17 +6,21 @@ real metrics backend — a plain in-process counter, incremented on every
 """
 from __future__ import annotations
 
+import threading
+
 _category_hits: dict[str, int] = {}
+_lock = threading.Lock()
 
 
 def record_hit(category: str) -> None:
-    """Increment the hit counter for `category`."""
-    # BUG: read-modify-write on a shared dict with no lock. Under the
-    # ThreadingHTTPServer's concurrent request threads, two threads can both
-    # read the same current value before either writes back, so one
-    # increment is silently lost -> the counter undercounts under load.
-    current = _category_hits.get(category, 0)
-    _category_hits[category] = current + 1
+    """Increment the hit counter for `category`.
+
+    The read-modify-write on the shared dict is serialized with a lock so
+    that concurrent request threads cannot both read the same current value
+    and lose one of the increments.
+    """
+    with _lock:
+        _category_hits[category] = _category_hits.get(category, 0) + 1
 
 
 def hit_count(category: str) -> int:

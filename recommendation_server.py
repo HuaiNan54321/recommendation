@@ -26,12 +26,14 @@ CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
 # request counter, exposed via /metrics so the climb is observable externally too
 _request_count = 0
+_request_count_lock = threading.Lock()
 
 
 def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> list[str]:
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
-    _request_count += 1
+    with _request_count_lock:
+        _request_count += 1
     _seen_product_ids.extend(input_product_ids)
     stats.record_hit("catalog")
 
