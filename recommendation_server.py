@@ -23,12 +23,12 @@ import json
 import os
 import threading
 import time
+from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-# --- BAD (s4 planted leak): module-level unbounded accumulation ---
-# Every GetRecommendations call appends to this list and it is never bounded,
-# so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+# Bounded recent-id tracker: a deque with maxlen caps the number of retained ids,
+# so the working set does NOT grow without limit under sustained load.
+_seen_product_ids: deque[str] = deque(maxlen=128)
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
