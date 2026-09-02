@@ -18,12 +18,16 @@ from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import ranking
+import dedupe
 
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
 
 # demo catalog: a handful of SKUs is enough for the endpoints below
 CATALOG = [f"PRODUCT-{i}" for i in range(4)]
+
+# merchandising-curated trending ids; may overlap with the catalog match set
+_TRENDING = ["PRODUCT-0", "PRODUCT-3", "PRODUCT-7"]
 
 # request counter, exposed via /metrics
 _request_count = 0
@@ -41,6 +45,11 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     # popularity score: earlier catalog entries count as more popular
     scored = [(p, float(len(CATALOG) - CATALOG.index(p))) for p in candidates]
     candidates = ranking.rank_by_score(scored)
+
+    # merge the merchandising trending ids in; a response must never repeat an
+    # id, and never echo back an id the caller already has
+    trending = [p for p in _TRENDING if p not in exclude]
+    candidates = dedupe.dedupe_ids(candidates + trending)
 
     return candidates[:max_results]
 
