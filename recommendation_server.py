@@ -1,34 +1,34 @@
 """Minimal recommendation service (stand-in for the OTel demo's Python service).
 
-s4 capstone — the "bad" (planted) revision. Two things matter here:
+s4 capstone — bounded recent-id cache revision. Two things matter here:
 
 1. **It is a real, runnable service.** `python recommendation_server.py` starts an
    HTTP server on :8080 AND a background load thread that keeps calling
-   `get_recommendations`. So when this image runs in a container, its working-set
-   memory climbs monotonically on its own — 故障诊断处置 Agent can OBSERVE a live leaking
-   process (`docker stats`, the /metrics endpoint), not merely infer it from text.
+   `get_recommendations`. When the cache was unbounded, 故障诊断处置 Agent could OBSERVE a
+   live leaking process (`docker stats`, the /metrics endpoint); after the fix the
+   working set stays capped.
 
-2. **The leak lives in pure logic that pytest can pin down.** `get_recommendations`
-   appends every requested id into a module-level unbounded list that is never
-   trimmed, so the working set grows without limit -> OOM. The fix is to bound it
-   (collections.deque(maxlen=N)) or drop the cache. `test_memory_is_bounded` is the
-   build+test gate 代码修复 Agent must turn green before opening a PR.
+2. **The regression lives in pure logic that pytest can pin down.** The bad revision
+   appended every requested id into a module-level unbounded list that was never
+   trimmed, so the working set grew without limit -> OOM. The fix is to bound it
+   (collections.deque(maxlen=128)). `test_memory_is_bounded` is the build+test gate
+   代码修复 Agent must turn green before opening a PR.
 
 Kept dependency-light (stdlib only, no gRPC/framework) so 代码修复 Agent can build+test it
 with just the stdlib + pytest in the clone, and so the container image stays tiny.
 """
 from __future__ import annotations
 
+import collections
 import json
 import os
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-# --- BAD (s4 planted leak): module-level unbounded accumulation ---
-# Every GetRecommendations call appends to this list and it is never bounded,
-# so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+# --- Bounded recent-id cache (maxlen=128) ---
+# Keep only the most recent seen ids so the working set stays capped.
+_seen_product_ids: collections.deque[str] = collections.deque(maxlen=128)
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
@@ -66,7 +66,7 @@ class _Handler(BaseHTTPRequestHandler):
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the two signals 故障诊断处置 Agent can scrape.
             body = (
-                "# HELP recommendation_seen_ids_total tracked product ids (unbounded leak)\n"
+                "# HELP recommendation_seen_ids_total tracked product ids (bounded)\n"
                 "# TYPE recommendation_seen_ids_total gauge\n"
                 f"recommendation_seen_ids_total {seen_count()}\n"
                 "# HELP recommendation_requests_total requests served\n"
@@ -94,11 +94,11 @@ class _Handler(BaseHTTPRequestHandler):
 
 
 def _background_load(rps: float) -> None:
-    """Continuously exercise the service so memory climbs on its own (no external
-    load generator needed). Each tick grows _seen_product_ids -> monotonic RSS rise.
+    """Continuously exercise the service (no external load generator needed).
+    Each tick records a few ids in the bounded cache; maxlen caps memory usage.
 
-    The synthetic session ids carry a payload so the leak is visible as real RSS
-    growth in `docker stats` within a couple of minutes, not just an item count."""
+    The synthetic session ids carry a payload so the capped working set is visible
+    in `docker stats`, not just as an item count."""
     i = 0
     interval = 1.0 / rps if rps > 0 else 0.01
     pad = "x" * 256  # make each leaked entry weigh enough to move RSS
@@ -117,7 +117,7 @@ def main() -> None:
         t.start()
         print(f"[recommendation] background load started ~{rps} rps", flush=True)
     srv = ThreadingHTTPServer(("0.0.0.0", port), _Handler)
-    print(f"[recommendation] serving on :{port} (leak revision)", flush=True)
+    print(f"[recommendation] serving on :{port} (bounded revision)", flush=True)
     srv.serve_forever()
 
 
