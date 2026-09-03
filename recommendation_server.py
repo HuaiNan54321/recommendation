@@ -19,6 +19,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import ranking
 import dedupe
+import stats
 
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
@@ -38,6 +39,8 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     _request_count += 1
     # track recently served ids
     _seen_product_ids.extend(input_product_ids)
+
+    stats.record_hit("catalog")
 
     exclude = set(input_product_ids)
     candidates = [p for p in CATALOG if p not in exclude]
