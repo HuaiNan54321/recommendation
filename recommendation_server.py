@@ -17,6 +17,8 @@ import time
 from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+import ranking
+
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
 
@@ -35,6 +37,10 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
 
     exclude = set(input_product_ids)
     candidates = [p for p in CATALOG if p not in exclude]
+
+    # popularity score: earlier catalog entries count as more popular
+    scored = [(p, float(len(CATALOG) - CATALOG.index(p))) for p in candidates]
+    candidates = ranking.rank_by_score(scored)
 
     return candidates[:max_results]
 
