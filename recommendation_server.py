@@ -20,6 +20,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import ranking
 import dedupe
 import stats
+import pagination
 
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
@@ -71,6 +72,16 @@ class _Handler(BaseHTTPRequestHandler):
         if self.path.startswith("/recommend"):
             out = get_recommendations(["PRODUCT-0", "PRODUCT-1"])
             self._json({"recommendations": out})
+        elif self.path.startswith("/catalog"):
+            # path: /catalog/<page>/<page_size>  (page is 1-based)
+            parts = self.path.strip("/").split("/")
+            page = int(parts[1]) if len(parts) > 1 and parts[1] else 1
+            size = int(parts[2]) if len(parts) > 2 and parts[2] else 10
+            self._json({
+                "page": page,
+                "page_size": size,
+                "products": pagination.paginate(CATALOG, page, size),
+            })
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the signals an on-call can scrape.
             body = (
