@@ -21,6 +21,7 @@ import ranking
 import dedupe
 import stats
 import pagination
+import cache
 
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
@@ -30,6 +31,10 @@ CATALOG = [f"PRODUCT-{i}" for i in range(4)]
 
 # merchandising-curated trending ids; may overlap with the catalog match set
 _TRENDING = ["PRODUCT-0", "PRODUCT-3", "PRODUCT-7"]
+
+# the trending list is derived data; cache it briefly so /trending stays cheap
+_TRENDING_TTL_SECONDS = 60
+_trending_cache = cache.TTLCache()
 
 # request counter, exposed via /metrics
 _request_count = 0
@@ -82,6 +87,12 @@ class _Handler(BaseHTTPRequestHandler):
                 "page_size": size,
                 "products": pagination.paginate(CATALOG, page, size),
             })
+        elif self.path.startswith("/trending"):
+            cached = _trending_cache.get("trending")
+            if cached is None:
+                cached = list(_TRENDING)
+                _trending_cache.set("trending", cached, _TRENDING_TTL_SECONDS)
+            self._json({"trending": cached})
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the signals an on-call can scrape.
             body = (
