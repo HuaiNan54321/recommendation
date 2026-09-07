@@ -19,6 +19,8 @@ with just the stdlib + pytest in the clone, and so the container image stays tin
 """
 from __future__ import annotations
 
+from collections import deque
+
 import json
 import os
 import threading
@@ -28,7 +30,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 # --- BAD (s4 planted leak): module-level unbounded accumulation ---
 # Every GetRecommendations call appends to this list and it is never bounded,
 # so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+_seen_product_ids: deque[str] = deque()
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
@@ -40,8 +42,10 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
     _request_count += 1
-    # leak: record every id we have ever seen, unbounded
+    global _seen_product_ids
+    _seen_product_ids = deque(_seen_product_ids)
     _seen_product_ids.extend(input_product_ids)
+    _seen_product_ids.clear()
 
     candidates = [p for p in CATALOG if p not in set(input_product_ids)]
     return candidates[:max_results]
