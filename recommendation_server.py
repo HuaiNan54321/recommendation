@@ -19,16 +19,17 @@ with just the stdlib + pytest in the clone, and so the container image stays tin
 """
 from __future__ import annotations
 
+import collections
 import json
 import os
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-# --- BAD (s4 planted leak): module-level unbounded accumulation ---
-# Every GetRecommendations call appends to this list and it is never bounded,
-# so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: list[str] = []
+# --- bounded _seen_product_ids sentinel: prevents unbounded accumulation under load ---
+# The background load thread appends ids on every call. With maxlen=128 the deque
+# automatically discards old entries when full, preventing infinite growth and eventual OOM.
+_seen_product_ids: collections.deque[str] = collections.deque(maxlen=128)
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
