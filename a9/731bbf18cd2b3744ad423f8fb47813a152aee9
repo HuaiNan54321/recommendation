@@ -1,0 +1,14 @@
+recommendation_server.py
+  h_36a938e40ba761 22-23,33,45-46,48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "a9731bbf18cd2b3744ad423f8fb47813a152aee9",
+  "prompts": {},
+  "humans": {
+    "h_36a938e40ba761": {
+      "author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
