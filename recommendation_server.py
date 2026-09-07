@@ -1,6 +1,6 @@
 """Minimal recommendation service (stand-in for the OTel demo's Python service).
 
-Clean baseline revision (bounded recent-id cache). Two things matter here:
+s4 capstone — the "bad" (planted) revision. Two things matter here:
 
 1. **It is a real, runnable service.** `python recommendation_server.py` starts an
    HTTP server on :8080 AND a background load thread that keeps calling
@@ -22,14 +22,13 @@ from __future__ import annotations
 import json
 import os
 import threading
-from collections import deque
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 # --- BAD (s4 planted leak): module-level unbounded accumulation ---
 # Every GetRecommendations call appends to this list and it is never bounded,
 # so the working set grows without limit under sustained load -> OOM.
-_seen_product_ids: deque[str] = deque(maxlen=128)  # bounded: recent ids only
+_seen_product_ids: list[str] = []
 
 CATALOG = [f"PRODUCT-{i}" for i in range(20)]
 
