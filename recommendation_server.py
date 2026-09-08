@@ -22,6 +22,7 @@ import dedupe
 import stats
 import pagination
 import cache
+import pricing
 
 # recent-id cache: bounded, keeps the last 128 served ids
 _seen_product_ids: deque[str] = deque(maxlen=128)
@@ -93,6 +94,16 @@ class _Handler(BaseHTTPRequestHandler):
                 cached = list(_TRENDING)
                 _trending_cache.set("trending", cached, _TRENDING_TTL_SECONDS)
             self._json({"trending": cached})
+        elif self.path.startswith("/price/"):
+            # path: /price/<product_id>/<discount_pct>
+            parts = self.path.strip("/").split("/")
+            product_id = parts[1] if len(parts) > 1 else ""
+            discount = int(parts[2]) if len(parts) > 2 else 10
+            self._json({
+                "product_id": product_id,
+                "list_price_cents": pricing.list_price_cents(product_id),
+                "member_price_cents": pricing.member_price_cents(product_id, discount),
+            })
         elif self.path.startswith("/metrics"):
             # Prometheus text-exposition: the signals an on-call can scrape.
             body = (
