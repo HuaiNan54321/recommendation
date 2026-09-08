@@ -1,0 +1,19 @@
+.env.example
+  s_0aef9019f3140d::t_c3db32ff77bbcd 26,42-54,57-62,67-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "e3c45fd45c172545ff8643678735cfff58055297",
+  "prompts": {},
+  "sessions": {
+    "s_0aef9019f3140d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0da98464-a77a-4877-ab3a-f56dabc784c7",
+        "model": "glm-5.3-xhs"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

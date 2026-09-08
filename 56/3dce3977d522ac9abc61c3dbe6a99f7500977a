@@ -1,0 +1,20 @@
+docker-compose.override.yml
+  s_61c3020c5aa5c9::t_bfd1377fde53ae 13,18
+  s_61c3020c5aa5c9::t_febd3637384403 1-12,14-17,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "563dce3977d522ac9abc61c3dbe6a99f7500977a",
+  "prompts": {},
+  "sessions": {
+    "s_61c3020c5aa5c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b6b35a12-1de3-42f3-9ecb-19801e655404",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+reports/run_20260818T171505/metrics.json
+  s_b7b713f5e8147b::t_2640eb968ceef7 1-40
+reports/archive/run_20260818T153853_s1_old_gold/metrics.json
+  s_b7b713f5e8147b::t_8ff61f138b7754 1-38
+reports/run_20260817T153651_reused/metrics.json
+  s_b7b713f5e8147b::t_5d7d5866826ae4 1-41
+reports/metrics.json
+  s_b7b713f5e8147b::t_1e10a5926c261e 2-3,5-12
+reports/run_20260818T162149/metrics.json
+  s_b7b713f5e8147b::t_25600387f166b5 1-38
+eval/aggregate.py
+  s_b7b713f5e8147b::t_5a98bcd94b1ff7 20-23,27
+  s_b7b713f5e8147b::t_c52976e589694b 25-26
+  s_b7b713f5e8147b::t_39516bb7edabc2 168-169,172,185-186,192-233,236
+reports/run_20260819T033230/metrics.json
+  s_b7b713f5e8147b::t_8a78794136ea97 1-38
+eval/multi_run.py
+  s_b7b713f5e8147b::t_81419800e70a16 98-102,122-125
+  s_b7b713f5e8147b::t_272f7743261c2e 126
+  s_b7b713f5e8147b::t_ac261ec9306304 39
+  s_b7b713f5e8147b::t_b42f8f299631b3 16-19
+reports/run_20260818T164906/metrics.json
+  s_b7b713f5e8147b::t_37582d10c51459 1-38
+reports/run_20260819T032210/metrics.json
+  s_b7b713f5e8147b::t_41987398b13d92 1-38
+reports/archive/run_20260817T153651/metrics.json
+  s_b7b713f5e8147b::t_db6effda017c0b 2-3,5
+reports/run_20260818T170458/metrics.json
+  s_b7b713f5e8147b::t_a37b1e34d88a68 1-38
+reports/run_20260819T031112/metrics.json
+  s_b7b713f5e8147b::t_ce364a41a0472b 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "b38fc01dc69d44770a447f1f8ad846c7735a73d8",
+  "prompts": {},
+  "humans": {
+    "h_36a938e40ba761": {
+      "author": "HuaiNan <amy095200@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b7b713f5e8147b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f3722a0-5e08-4631-9ab4-8faebbce47a6",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

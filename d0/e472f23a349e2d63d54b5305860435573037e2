@@ -1,0 +1,19 @@
+agent/run.py
+  s_b7b713f5e8147b::t_e81764ba504406 92-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "d0e472f23a349e2d63d54b5305860435573037e2",
+  "prompts": {},
+  "sessions": {
+    "s_b7b713f5e8147b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f3722a0-5e08-4631-9ab4-8faebbce47a6",
+        "model": "glm-5.3-xhs"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

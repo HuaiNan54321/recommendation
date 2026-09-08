@@ -1,0 +1,56 @@
+eval/aggregate.py
+  s_b7b713f5e8147b::t_294e0867967172 197-199,209
+eval/multi_run.py
+  s_b7b713f5e8147b::t_4363e7f3a8381b 16-20
+  s_b7b713f5e8147b::t_740120a96421a8 33,38,48-50
+  s_b7b713f5e8147b::t_8248ee5c6649e4 107-112
+  s_b7b713f5e8147b::t_531d272c8357d5 135-143
+  s_0aef9019f3140d::t_154d346cd66fd1 51-52
+reports/opus_20260819/metrics.json
+  s_b7b713f5e8147b::t_3e9113b3870dee 2-3,5-12
+reports/opus_20260819/run_20260817T153651_reused/metrics.json
+  s_b7b713f5e8147b::t_3e39964347cdfb 2-3,5
+reports/opus_20260819/run_20260818T162149/metrics.json
+  s_b7b713f5e8147b::t_9b3b97a86fb9c6 2-3,5
+reports/opus_20260819/run_20260818T164906/metrics.json
+  s_b7b713f5e8147b::t_313941053ed055 2-3,5
+reports/opus_20260819/run_20260818T170458/metrics.json
+  s_b7b713f5e8147b::t_dce945e975bec6 2-3,5
+reports/opus_20260819/run_20260818T171505/metrics.json
+  s_b7b713f5e8147b::t_05d7896b88ee2c 2-3,5
+reports/opus_20260819/run_20260819T031112/metrics.json
+  s_b7b713f5e8147b::t_13f010ce395014 2-3,5
+reports/opus_20260819/run_20260819T032210/metrics.json
+  s_b7b713f5e8147b::t_f465f5f583b6ca 2-3,5
+reports/opus_20260819/run_20260819T033230/metrics.json
+  s_b7b713f5e8147b::t_6a9d7fd855170d 2-3,5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "92a00b37299ced5963c04efae76f66b86f6c21c4",
+  "prompts": {},
+  "humans": {
+    "h_36a938e40ba761": {
+      "author": "HuaiNan <amy095200@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0aef9019f3140d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0da98464-a77a-4877-ab3a-f56dabc784c7",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    },
+    "s_b7b713f5e8147b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f3722a0-5e08-4631-9ab4-8faebbce47a6",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

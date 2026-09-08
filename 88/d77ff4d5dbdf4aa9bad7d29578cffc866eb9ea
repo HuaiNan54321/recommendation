@@ -1,0 +1,19 @@
+scripts/fixtures/recommendation-dedupe/recommendation_server.py
+  s_0fa1fa15f4f58f::t_0fe15c501a2b55 26-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "88d77ff4d5dbdf4aa9bad7d29578cffc866eb9ea",
+  "prompts": {},
+  "sessions": {
+    "s_0fa1fa15f4f58f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a590eb80-0e76-40e4-a99d-a109dc3393f0",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

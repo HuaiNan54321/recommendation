@@ -1,0 +1,47 @@
+agent/core/remediation.py
+  s_61c3020c5aa5c9::t_fff6937d7b91e4 111-113,116-117
+agent/config.py
+  s_61c3020c5aa5c9::t_270737c604323c 55
+agent/core/hooks.py
+  s_61c3020c5aa5c9::t_935b64d7b850af 35-36
+  s_61c3020c5aa5c9::t_2afb37f93a0e44 49
+  s_61c3020c5aa5c9::t_6c558ba485a2e1 38
+  s_61c3020c5aa5c9::t_8f10e8b1f87f76 50
+  s_61c3020c5aa5c9::t_4a9ef00dfb0986 57-58
+agent/agents/prompts.py
+  s_61c3020c5aa5c9::t_bee0c8cdf76cbf 75
+  s_61c3020c5aa5c9::t_c1ec7f50833ff3 74
+  s_61c3020c5aa5c9::t_c93687883ea7f7 73
+  s_61c3020c5aa5c9::t_260584616f4b0f 79
+  s_61c3020c5aa5c9::t_473b0fbc8c6b80 85-89
+  s_61c3020c5aa5c9::t_175ab0e1730a88 76
+  s_61c3020c5aa5c9::t_d7d9e624158712 77
+  s_61c3020c5aa5c9::t_df787736cf250e 48,53-56
+  s_61c3020c5aa5c9::t_227235a0ec6c90 57-58
+.gitignore
+  s_61c3020c5aa5c9::t_991352a52225f4 8
+.claude/skills/dependency-error/SKILL.md
+  s_61c3020c5aa5c9::t_384e33bf570993 12-14,16,18,22-23,27,29
+.claude/skills/memory-oom/SKILL.md
+  s_61c3020c5aa5c9::t_9d21c8389d799f 15-20,31,33
+.claude/skills/queue-backlog/SKILL.md
+  s_61c3020c5aa5c9::t_080d42bf6502c8 14,16,18,21-25,27
+.claude/skills/resource-cpu/SKILL.md
+  s_61c3020c5aa5c9::t_af0c06cbafea04 12,14,16,20-22,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "9891541a44e5c12a6fe388bcf3586668b706a87a",
+  "prompts": {},
+  "sessions": {
+    "s_61c3020c5aa5c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b6b35a12-1de3-42f3-9ecb-19801e655404",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

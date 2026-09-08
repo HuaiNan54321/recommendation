@@ -1,0 +1,24 @@
+agent/agents/prompts.py
+  s_2bef074555574f::t_8c8e4cb7bd3200 86
+agent/core/schema.py
+  s_2bef074555574f::t_adee081f4159cb 45-50
+  s_2bef074555574f::t_368858f7f80470 100-102
+tests/test_schema.py
+  s_2bef074555574f::t_fdd8c240fcc7ac 1-117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "51ef1c646737b2f671ac5f35926d0988f0b984ad",
+  "prompts": {},
+  "sessions": {
+    "s_2bef074555574f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7501bf3f-a2c8-4d62-beab-ada4e3164a40",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+scripts/fixtures/recommendation-ranking/ranking.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-14
+scripts/fixtures/recommendation-dedupe/README.md
+  s_ab95fd0207dd9f::t_077c8e2aee8923 1-13
+scripts/fixtures/recommendation-race-stats/README.md
+  s_ab95fd0207dd9f::t_b8292d76dafab7 1-14
+alerts/s11_dedupe.json
+  s_ab95fd0207dd9f::t_3979d62a620c73 1-10,12-13,16
+  s_ab95fd0207dd9f::t_7a3634b5efd4c1 11,14-15
+scripts/fixtures/recommendation-dedupe/Dockerfile
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-15
+scripts/fixtures/recommendation-dedupe/recommendation_server.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-121
+eval/expected.json
+  s_ab95fd0207dd9f::t_3fb76b5f1fd6ae 89-118
+  s_ab95fd0207dd9f::t_c9ec09b9d5f341 80
+  s_ab95fd0207dd9f::t_e6ec245b1f67dc 5
+  s_ab95fd0207dd9f::t_1e7afe4233f11c 28
+scripts/fixtures/recommendation-race-stats/recommendation_server.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-117
+scripts/fixtures/recommendation-ranking/requirements.txt
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1
+scripts/fixtures/recommendation-dedupe/dedupe.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-23
+scripts/fixtures/recommendation-ranking/test_ranking.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-13
+scripts/fixtures/recommendation-ranking/README.md
+  s_ab95fd0207dd9f::t_24fd207a6bdf15 1-40
+scripts/fixtures/recommendation-ranking/recommendation_server.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-117
+scripts/fixtures/recommendation-ranking/test_recommendation.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-31
+alerts/s10_ranking.json
+  s_ab95fd0207dd9f::t_182bf6a115febf 1-10,12-13,16
+  s_ab95fd0207dd9f::t_04a830f18eee76 11,14-15
+alerts/s8_fix_fail.json
+  s_ab95fd0207dd9f::t_02d742a305e884 10
+  s_ab95fd0207dd9f::t_b1afeacef649a2 11
+scripts/fixtures/recommendation-race-stats/Dockerfile
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-15
+agent/agents/code_fix.py
+  s_ab95fd0207dd9f::t_cb4988a7dd43ad 93-98,100,104
+  s_ab95fd0207dd9f::t_80cbcc0fc2aa06 25,32-36,49-53
+scripts/fixtures/recommendation-dedupe/requirements.txt
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1
+agent/run.py
+  s_ab95fd0207dd9f::t_a57dfb71749fc7 124
+  s_ab95fd0207dd9f::t_052203b3b5b985 104
+scripts/fixtures/recommendation-race-stats/stats.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-27
+agent/config.py
+  s_ab95fd0207dd9f::t_574b9958433b1b 43
+scripts/fixtures/recommendation-dedupe/test_recommendation.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-31
+alerts/s12_race.json
+  s_ab95fd0207dd9f::t_aaeb18c59692a2 11,14-15
+  s_ab95fd0207dd9f::t_bee1afda333236 1-10,12-13,16
+scripts/fixtures/recommendation-race-stats/requirements.txt
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1
+agent/agents/prompts.py
+  s_ab95fd0207dd9f::t_548e75f4c19a2d 154
+  s_ab95fd0207dd9f::t_b06a221908cbc8 143
+  s_ab95fd0207dd9f::t_d044d82a8cd0cd 168-176,182
+scripts/fixtures/recommendation-dedupe/test_dedupe.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-10
+scripts/fixtures/recommendation-race-stats/test_stats.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-37
+scripts/fixtures/recommendation-ranking/Dockerfile
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-15
+scripts/fixtures/recommendation-race-stats/test_recommendation.py
+  s_ab95fd0207dd9f::t_9ef730d0cab88b 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "cb64ed6bd1239fb04854ba57f4c74d1ac1c67522",
+  "prompts": {},
+  "sessions": {
+    "s_ab95fd0207dd9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc124c07-d0c8-421b-8bad-71b03dfbc693",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}

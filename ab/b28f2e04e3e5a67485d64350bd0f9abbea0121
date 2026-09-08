@@ -1,0 +1,20 @@
+scripts/reset.sh
+  s_b7b713f5e8147b::t_7f193c3c2a16c6 37-53
+  s_b7b713f5e8147b::t_f669fc9d0fc5f5 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "abb28f2e04e3e5a67485d64350bd0f9abbea0121",
+  "prompts": {},
+  "sessions": {
+    "s_b7b713f5e8147b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f3722a0-5e08-4631-9ab4-8faebbce47a6",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
