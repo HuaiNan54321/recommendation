@@ -1,0 +1,14 @@
+dedupe.py
+  h_36a938e40ba761 11-15,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "1900468d39c3de2377d2fc531327198ce652bcf8",
+  "prompts": {},
+  "humans": {
+    "h_36a938e40ba761": {
+      "author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
