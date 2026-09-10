@@ -1,0 +1,14 @@
+stats.py
+  h_36a938e40ba761 9-10,12,16-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "572480af3822475eadbddd523fbc04fc3231dc94",
+  "prompts": {},
+  "humans": {
+    "h_36a938e40ba761": {
+      "author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
