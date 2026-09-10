@@ -13,11 +13,10 @@ def dedupe_ids(product_ids: list[str]) -> list[str]:
     Ids are compared case-insensitively: "PRODUCT-1" and "product-1" are the
     same product and must not both appear in one response.
     """
-    seen: set[str] = set()
+    seen_lower: set[str] = set()
     out: list[str] = []
     for pid in product_ids:
-        key = pid
-        if key.lower() not in seen:
-            seen.add(key)
+        if pid.lower() not in seen_lower:
+            seen_lower.add(pid.lower())
             out.append(pid)
     return out
