@@ -16,8 +16,8 @@ def dedupe_ids(product_ids: list[str]) -> list[str]:
     seen: set[str] = set()
     out: list[str] = []
     for pid in product_ids:
-        key = pid
-        if key.lower() not in seen:
+        key = pid.lower()
+        if key not in seen:
             seen.add(key)
             out.append(pid)
     return out
