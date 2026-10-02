@@ -1,0 +1,19 @@
+recommendation_server.py
+  s_b4c4c00621e37a::t_fa7cd77b8ac70d 17,27-28,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "49bc2798827dff5ce699479ac3ad0aad470f6741",
+  "prompts": {},
+  "sessions": {
+    "s_b4c4c00621e37a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c6a66025-1f3c-498a-a805-364ae86b495f",
+        "model": "glm-5.3-flash"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
