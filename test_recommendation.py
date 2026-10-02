@@ -27,3 +27,14 @@ def test_memory_is_bounded():
         f"memory appears unbounded: tracking structure grew by {growth} "
         f"entries over 5000 requests (expected a bounded cap)"
     )
+
+
+def test_seen_id_history_is_capped():
+    # d0d4e59 regression guard: every request pushed its input ids onto the
+    # served-id history forever. A capped cache must stop growing at its cap.
+    for i in range(3000):
+        rs.get_recommendations([f"SKU-{i}"])
+    assert rs.seen_count() <= 128, (
+        f"served-id history is not capped: {rs.seen_count()} entries after "
+        f"3000 distinct requests (expected a bounded cache of at most 128)"
+    )
