@@ -6,13 +6,22 @@ real metrics backend — a plain in-process counter, incremented on every
 """
 from __future__ import annotations
 
+import threading
+
 _category_hits: dict[str, int] = {}
+
+# record_hit() is called concurrently: the server is a ThreadingHTTPServer (one
+# thread per request) and the background load thread exercises it too. The GIL
+# makes single dict ops atomic but not the read-modify-write below, so guard the
+# whole increment — otherwise interleaved threads read the same old value and
+# increments get lost.
+_lock = threading.Lock()
 
 
 def record_hit(category: str) -> None:
     """Increment the hit counter for `category`."""
-    current = _category_hits.get(category, 0)
-    _category_hits[category] = current + 1
+    with _lock:
+        _category_hits[category] = _category_hits.get(category, 0) + 1
 
 
 def hit_count(category: str) -> int:
