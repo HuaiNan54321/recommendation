@@ -1,0 +1,19 @@
+recommendation_server.py
+  s_b4c4c00621e37a::t_0531def7684b54 17,27-28,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "1488cb11363a42c9b764387965ef7227a2fef232",
+  "prompts": {},
+  "sessions": {
+    "s_b4c4c00621e37a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c6a66025-1f3c-498a-a805-364ae86b495f",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
