@@ -1,0 +1,21 @@
+recommendation_server.py
+  s_8a7a8ff6b50dd8::t_5f1d8e8b52c7f8 17,27-28,47
+test_recommendation.py
+  s_8a7a8ff6b50dd8::t_4d74f11a0f8e77 30-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "d29bb028e7aed118c614f086c62ddd2d006e2fbe",
+  "prompts": {},
+  "sessions": {
+    "s_8a7a8ff6b50dd8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "82651c61-0b3f-46e3-ab9f-8ce09cc773b3",
+        "model": "unknown"
+      },
+      "human_author": "HuaiNan <amy095200@gmail.com>"
+    }
+  }
+}
