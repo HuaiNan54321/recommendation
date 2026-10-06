@@ -14,6 +14,7 @@ import json
 import os
 import threading
 import time
+from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import ranking
@@ -23,8 +24,10 @@ import pagination
 import cache
 import pricing
 
-# analytics: full history of every product id this instance has ever served
-_seen_product_ids: list[str] = []
+# analytics: bounded rolling history of served product ids. A deque with a
+# maxlen caps the tracked window so sustained traffic can't grow RSS without
+# bound (the OOM regression); popularity can still be computed over the window.
+_seen_product_ids: deque[str] = deque(maxlen=128)
 
 # demo catalog: a handful of SKUs is enough for the endpoints below
 CATALOG = [f"PRODUCT-{i}" for i in range(4)]
@@ -43,7 +46,7 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
     _request_count += 1
-    # analytics: keep every served id so popularity can be computed later
+    # analytics: track recently served ids (bounded window)
     _seen_product_ids.extend(input_product_ids)
 
     stats.record_hit("catalog")
