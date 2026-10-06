@@ -10,6 +10,7 @@ tested with just the stdlib + pytest, and the container image stays tiny.
 """
 from __future__ import annotations
 
+import collections
 import json
 import os
 import threading
@@ -23,8 +24,11 @@ import pagination
 import cache
 import pricing
 
-# analytics: full history of every product id this instance has ever served
-_seen_product_ids: list[str] = []
+# analytics: bounded history of recently served product ids. A plain list grew
+# without limit here (one entry per request under background load), pushing RSS
+# up monotonically toward OOM; a fixed-capacity deque caps memory at MAXLEN.
+_SEEN_IDS_MAXLEN = 500
+_seen_product_ids: collections.deque[str] = collections.deque(maxlen=_SEEN_IDS_MAXLEN)
 
 # demo catalog: a handful of SKUs is enough for the endpoints below
 CATALOG = [f"PRODUCT-{i}" for i in range(4)]
