@@ -14,6 +14,7 @@ import json
 import os
 import threading
 import time
+from collections import deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import ranking
@@ -23,8 +24,9 @@ import pagination
 import cache
 import pricing
 
-# analytics: full history of every product id this instance has ever served
-_seen_product_ids: list[str] = []
+# analytics: recent-id cache, bounded so memory cannot grow with traffic
+_SEEN_PRODUCT_IDS_MAXLEN = 128
+_seen_product_ids: deque[str] = deque(maxlen=_SEEN_PRODUCT_IDS_MAXLEN)
 
 # demo catalog: a handful of SKUs is enough for the endpoints below
 CATALOG = [f"PRODUCT-{i}" for i in range(4)]
@@ -43,7 +45,8 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
     """Return up to max_results recommended product ids not already in the input."""
     global _request_count
     _request_count += 1
-    # analytics: keep every served id so popularity can be computed later
+    # analytics: keep only the most recent served ids; deque(maxlen) drops the
+    # oldest entries automatically, so this write path stays bounded
     _seen_product_ids.extend(input_product_ids)
 
     stats.record_hit("catalog")
