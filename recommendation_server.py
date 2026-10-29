@@ -23,8 +23,10 @@ import pagination
 import cache
 import pricing
 
-# analytics: full history of every product id this instance has ever served
-_seen_product_ids: list[str] = []
+# analytics: bounded history of every product id this instance has ever served
+# deque maxlen=128 caps RSS growth; prevents OOM under sustained traffic
+from collections import deque
+_seen_product_ids = deque(maxlen=128)
 
 # demo catalog: a handful of SKUs is enough for the endpoints below
 CATALOG = [f"PRODUCT-{i}" for i in range(4)]
