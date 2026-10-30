@@ -9,12 +9,12 @@ from __future__ import annotations
 import threading
 
 _category_hits: dict[str, int] = {}
-_lock = threading.Lock()
+_category_hits_lock = threading.Lock()
 
 
 def record_hit(category: str) -> None:
     """Increment the hit counter for `category`."""
-    with _lock:
+    with _category_hits_lock:
         current = _category_hits.get(category, 0)
         _category_hits[category] = current + 1
 
