@@ -11,3 +11,6 @@ def test_rank_by_score_orders_most_popular_first():
     assert ordered == ["PRODUCT-1", "PRODUCT-2", "PRODUCT-0"], (
         f"expected most-popular-first order, got {ordered}"
     )
+    assert ordered[0] == max(scored, key=lambda pair: pair[1])[0], (
+        f"highest-score product must be ranked first, got {ordered}"
+    )
