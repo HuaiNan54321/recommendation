@@ -48,8 +48,8 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
 
     stats.record_hit("catalog")
 
-    exclude = set(input_product_ids)
-    candidates = [p for p in CATALOG if p not in exclude]
+    exclude = set(pid.lower() for pid in input_product_ids)
+    candidates = [p for p in CATALOG if p.lower() not in exclude]
 
     # popularity score: earlier catalog entries count as more popular
     scored = [(p, float(len(CATALOG) - CATALOG.index(p))) for p in candidates]
@@ -57,7 +57,7 @@ def get_recommendations(input_product_ids: list[str], max_results: int = 5) -> l
 
     # merge the merchandising trending ids in; a response must never repeat an
     # id, and never echo back an id the caller already has
-    trending = [p for p in _TRENDING if p not in exclude]
+    trending = [p for p in _TRENDING if p.lower() not in exclude]
     candidates = dedupe.dedupe_ids(candidates + trending)
 
     return candidates[:max_results]
