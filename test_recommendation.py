@@ -15,6 +15,15 @@ def test_returns_recommendations():
     assert "PRODUCT-0" not in out
 
 
+def test_excludes_input_ids_case_insensitively():
+    # The exclusion filter must match ids the same way dedupe_ids() documents:
+    # case-insensitively. A caller holding 'product-0' must not get the
+    # catalog's 'PRODUCT-0' echoed back as a recommendation.
+    out = rs.get_recommendations(["product-0", "PRODUCT-1"], max_results=5)
+    assert "PRODUCT-0" not in out, f"excluded id leaked: {out}"
+    assert "PRODUCT-1" not in out, f"excluded id leaked: {out}"
+
+
 def test_memory_is_bounded():
     # reset module state if the fix exposed a way to; otherwise just measure growth
     start = rs.seen_count()
